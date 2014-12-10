@@ -38,12 +38,21 @@ atacar <- function(a,d,log=F){
 	return(a > d)
 }
 
-simularAtaque <- function(a,d,n){
-	ganadas <- 0	
+simularAtaque <- function(a,d,n,graficar=F){
+	ganadas <- 0
+	titulo = paste("Simulación con ",a ," ejércitos de ataque y ",d , " de defensa")
+	promedios <- vector(length= n)
 	for(i in 1:n){
 		if(atacar(a,d)){
 			ganadas <- ganadas+1
 		}	
+		promedios[i] =  ganadas/i
+	}
+	if(graficar)
+	{	
+		plot(promedios, type="l", main=titulo, xlab="Muestras", ylab="Media")
+
 	}
 	return(ganadas / n)
 }
+
