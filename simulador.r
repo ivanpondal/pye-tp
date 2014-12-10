@@ -1,16 +1,8 @@
 dadosAtaque <- function(n){
 	dados <- 3
-	switch(n,
-		'1'={
-			dados <- 0
-		},
-		'2'={
-			dados <- 1
-		},
-		'3'={
-			dados <- 2
-		}
-		)
+	if(n < 4){
+		dados <- n - 1
+	}
 	dados <- sample(6,dados,T)		
 	return(sort(dados,T))
 }
@@ -24,7 +16,7 @@ dadosDefensa <- function(n){
 	return(sort(dados,T))
 }
 
-atacar <- function(a,d){
+atacar <- function(a,d,log=F){
 	while(a > 1 && d > 0){
 		ataque <- dadosAtaque(a)
 		defensa <- dadosDefensa(d)
@@ -35,7 +27,13 @@ atacar <- function(a,d){
 			else{
 				a <- a-1
 			}
-		}	
+		}
+		if(log){
+			cat("ataque:",ataque,"\n")
+			cat("defensa:",defensa,"\n")
+			cat("ejercitos atacante:",a,"\n")
+			cat("ejercitos defensor:",d,"\n")
+		}
 	}
 	return(a > d)
 }
